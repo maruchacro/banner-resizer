@@ -60,10 +60,11 @@ const generateImages = async (uploadedImage, selectedRatios, apiKey, prompt) => 
       console.log(`Calling Gemini API (${MODEL}) for ${ratio}...`);
       console.log("Using Prompt:", prompt); // Log the prompt for verification
 
-      const response = await fetch(`${ENDPOINT}?key=${apiKey}`, {
+      const response = await fetch(ENDPOINT, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKey
         },
         body: JSON.stringify(body)
       });
@@ -75,7 +76,11 @@ const generateImages = async (uploadedImage, selectedRatios, apiKey, prompt) => 
         if (response.status === 404) {
           console.log("Model not found. Attempting to list available models...");
           try {
-            const listResp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+            const listResp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models`, {
+              headers: {
+                "x-goog-api-key": apiKey
+              }
+            });
             const listData = await listResp.json();
             console.log("=== AVAILABLE MODELS ===", listData);
             throw new Error(`モデルが見つかりません。コンソールに利用可能なモデル一覧を出力しました。`);
