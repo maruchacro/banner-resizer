@@ -26,8 +26,8 @@
 
 1.  **リポジトリをクローンします**
     ```bash
-    git clone https://github.com/your-username/resize-banner-app.git
-    cd resize-banner-app
+    git clone https://github.com/maruchacro/banner-resizer.git
+    cd banner-resizer
     ```
 
 2.  **依存パッケージをインストールします**
